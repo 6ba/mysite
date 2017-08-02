@@ -1,0 +1,86 @@
+{% extends "bbs/bbs_base.html"%}
+{% load staticfiles %}
+{% load custom_markdown %}
+
+
+{% block content %}
+<script type="text/javascript" src="{% static 'ueditor/ueditor.config.js' %}"></script>
+<script type="text/javascript" src="{% static 'ueditor/ueditor.all.min.js' %}"></script>
+
+<div class="main layui-clear">
+  <div class="fly-panel" pad20>
+    <h2 class="page-title">发表问题</h2>
+
+    <!-- <div class="fly-none">并无权限</div> -->
+
+    <div class="layui-form layui-form-pane">
+      <form action=" method="post">
+
+
+        <div class="layui-form-item">
+          <label for="L_title" class="layui-form-label">标题</label>
+          <div class="layui-input-block">
+            <input type="text" id="L_title" name="title" required lay-verify="required" autocomplete="off" class="layui-input">
+          </div>
+        </div>
+
+        <div class="layui-form-item layui-form-text">
+            <div>
+				<!-- <label for="id_content">内容:</label> -->
+
+				<script id="id_content" name="content"  style="display: inline-block;" type="text/plain"></script>
+				<script type="text/javascript">
+					var id_content = UE.getEditor('id_content',{'initialFrameWidth': 800, 'serverUrl': '/ueditor/controller/?filePathFormat=uploads%2Ffiles%2F%25%28basename%29s_%25%28datetime%29s.%25%28extname%29s&imagePathFormat=uploads%2Fimages%2F%25%28basename%29s_%25%28datetime%29s.%25%28extname%29s', 'initialFrameHeight': 500});
+					 id_content.ready(function(){
+
+					 });
+				</script>
+			 </div>
+        </div>
+
+        <div class="layui-form-item">
+          <div class="layui-inline">
+            <label class="layui-form-label">类别</label>
+            <div class="layui-input-block">
+             <input type="text" id="cate" name="cate" required lay-verify="required" autocomplete="off" class="layui-input">
+            </div>
+          </div>
+            <!--
+          <div class="layui-inline">
+            <label class="layui-form-label">悬赏飞吻</label>
+            <div class="layui-input-block">
+              <select name="experience">
+                <option value="5" selected>5</option>
+                <option value="20">20</option>
+                <option value="50">50</option>
+                <option value="100">100</option>
+              </select>
+            </div>
+          </div>
+            -->
+
+        </div>
+
+        <div class="layui-form-item">
+          <label for="L_vercode" class="layui-form-label">人类验证</label>
+          <div class="layui-input-inline">
+            <input type="text" id="L_vercode" name="vercode" required lay-verify="required" placeholder="请回答后面的问题" autocomplete="off" class="layui-input">
+          </div>
+          <div class="layui-form-mid">
+              <!-- get时候传递进去a,b 的值post出来的vercode -->
+            <span style="color: #c00;">1+2=?</span>
+          </div>
+        </div>
+
+
+        <div class="layui-form-item">
+          <button class="layui-btn" lay-filter="*" lay-submit>立即发布</button>
+        </div>
+
+      </form>
+    </div>
+  </div>
+</div>
+
+
+{% endblock %}

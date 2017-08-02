@@ -1,0 +1,169 @@
+{% extends "bbs/bbs_base.html"%}
+{% load staticfiles %}
+{% load custom_markdown %}
+
+
+{% block content %}
+
+<div class="main layui-clear">
+  <div class="wrap">
+    <div class="content detail">
+      <div class="fly-panel detail-box">
+        <h1>{{ tie.title }}</h1>
+        <div class="fly-tip fly-detail-hint" data-id="{{rows.id}}">
+
+          <span class="fly-tip-stick">置顶帖</span>
+          <span class="fly-tip-jing">精帖</span>
+
+          <span>未结贴</span>
+          <!-- <span class="fly-tip-jie">已采纳</span> -->
+
+          <!-- <span class="jie-admin" type="del" style="margin-left: 20px;">删除</span>
+          <span class="jie-admin" type="set" field="stick" rank="1">置顶</span>
+          <span class="jie-admin" type="set" field="stick" rank="0" style="background-color:#ccc;">取消置顶</span>
+          <span class="jie-admin" type="set" field="status" rank="1">加精</span>
+          <span class="jie-admin" type="set" field="status" rank="0" style="background-color:#ccc;">取消加精</span> -->
+
+          <div class="fly-list-hint">
+            <i class="iconfont" title="回答">&#xe60c;</i> 517
+            <i class="iconfont" title="人气">&#xe60b;</i> 98032
+          </div>
+        </div>
+
+
+        <div class="detail-about">
+          <a class="jie-user" href="">
+            <img src="http://tp4.sinaimg.cn/1345566427/180/5730976522/0" alt="">
+            <cite>
+              {{ tie.author }}
+              <em>{{ tie.pub_date }}</em>
+            </cite>
+          </a>
+          <div class="detail-hits" data-id="{{rows.id}}">
+            <!-- <span style="color:#FF7200">悬赏：20飞吻</span> -->
+			{% if request.user == tie.author %}
+            <span class="layui-btn layui-btn-mini jie-admin" type="edit"><a href="/edit/{{tie.id}}">编辑此贴</a></span>
+            {% endif %}
+
+			<span class="layui-btn layui-btn-mini jie-admin " type="collect" data-type="add">收藏</span>
+            <!--<span class="layui-btn layui-btn-mini jie-admin  layui-btn-danger" type="collect" data-type="add">取消收藏</span>-->
+          </div>
+        </div>
+
+
+        <div class="detail-body photos" style="margin-bottom: 20px;">
+				{{ tie.content | safe}}
+        </div>
+      </div>
+			<!-- 评论 -->
+      <div class="fly-panel detail-box" style="padding-top: 0;">
+        <a name="comment"></a>
+        <ul class="jieda photos" id="jieda">
+
+		{% for y in comments %}
+          <li data-id="12" class="jieda-daan">
+            <a name="item-121212121212"></a>
+            <div class="detail-about detail-about-reply">
+              <a class="jie-user" href="">
+                <img src="{% static 'bbs/res/images/avatar/default.png' %}" alt="">
+                <cite>
+                  <i>{{ y.puter }}</i>
+
+                 <em>(楼主)</em>
+				 <!--
+                  <em style="color:#5FB878">(管理员)</em>
+                  <em style="color:#FF9E3F">（活雷锋）</em>
+                  <em style="color:#999">（该号已被封）</em>
+                -->
+
+
+				</cite>
+              </a>
+              <div class="detail-hits">
+                <span>{{ y.pub_date }}</span>
+              </div>
+              <i class="iconfont icon-caina" title="最佳答案"></i>
+            </div>
+            <div class="detail-body jieda-body">
+              {{ y.content | custom_markdown }}
+            </div>
+
+            <div class="jieda-reply">
+              <span class="jieda-zan zanok" type="zan"><i class="iconfont icon-zan"></i><em>12</em></span>
+              <span type="reply"><i class="iconfont icon-svgmoban53"></i>回复</span>
+              <!-- <div class="jieda-admin">
+                <span type="edit">编辑</span>
+                <span type="del">删除</span>
+                <span class="jieda-accept" type="accept">采纳</span>
+              </div> -->
+            </div>
+          </li>
+
+		  {% endfor %}
+
+          <!-- <li class="fly-none">没有任何回答</li> -->
+        </ul>
+
+        <div class="layui-form layui-form-pane">
+          <form action="" method="post">
+
+		  {% csrf_token %}
+				<!-- markdown 回复框 -->
+					   <div class="form-row field-content">
+						<div>
+							<label class="required" for="id_content">评论:</label>
+							<div class="markdownx row">
+
+								<div class="col-md-6">
+									<textarea class="markdownx-editor" cols="40" data-markdownx-latency="500" data-markdownx-upload-urls-path="/markdownx/upload/" data-markdownx-urls-path="/markdownx/markdownify/" id="id_content" name="content" rows="10" data-markdownx-editor-resizable required></textarea>
+								</div>
+
+								<div class="col-md-6">
+									<div class="markdownx-preview"></div>
+								</div>
+
+							</div>
+
+						</div>
+					  </div>
+					<!-- markdown 回复框结束 -->
+
+            <div class="layui-form-item">
+              <input type="hidden" name="jid" value="{{rows.id}}">
+
+              <button class="layui-btn" lay-filter="*" lay-submit>提交回答</button>
+            </div>
+          </form>
+        </div>
+
+
+
+      </div>
+    </div>
+  </div>
+
+  <div class="edge">
+    <dl class="fly-panel fly-list-one">
+      <dt class="fly-panel-title">最近热帖</dt>
+	  {% for x in seen_top_ties %}
+      <dd>
+        <a href="/bbs/ties/{{ x.id }}/">{{ x.title }}</a>
+        <span><i class="iconfont">&#xe60b;</i> {{ x.see_num }}</span>
+      </dd>
+	  {% endfor %}
+
+    </dl>
+
+    <dl class="fly-panel fly-list-one">
+      <dt class="fly-panel-title">近期热议</dt>
+	  {% for x in comment_top_ties%}
+      <dd>
+        <a href="/bbs/ties/{{ x.id }}/">{{ x.title }}</a>
+        <span><i class="iconfont">&#xe60c;</i> {{ x.comment_num }}</span>
+      </dd>
+	{% endfor %}
+    </dl>
+  </div>
+</div>
+
+{% endblock %}

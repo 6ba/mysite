@@ -1,5 +1,6 @@
 # 说明
 本项目由 `Django==1.10.9` + `py==python3.5.2` 搭建.
+> pip3 install django-markdownx
 
 项目地址 www.aljs.pw
 

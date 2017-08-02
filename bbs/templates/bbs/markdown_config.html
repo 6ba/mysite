@@ -1,0 +1,41 @@
+{% load staticfiles %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'admin/css/base.css' %}"  />
+<link rel="stylesheet" type="text/css" href="{% static 'admin/css/forms.css' %}" />
+
+
+<script type="text/javascript" src="{% static 'jsi18n/' %}"></script>
+<script type="text/javascript" src="{% static 'admin/js/core.js' %}"></script>
+<script type="text/javascript" src="{% static 'admin/js/vendor/jquery/jquery.js' %}"></script>
+<script type="text/javascript" src="{% static 'admin/js/jquery.init.js' %}"></script>
+<script type="text/javascript" src="{% static 'admin/js/admin/RelatedObjectLookups.js' %}"></script>
+<script type="text/javascript" src="{% static 'admin/js/actions.js' %}"></script>
+<script type="text/javascript" src="{% static 'admin/js/urlify.js' %}"></script>
+<script type="text/javascript" src="{% static 'admin/js/prepopulate.js' %}"></script>
+<script type="text/javascript" src="{% static 'admin/js/vendor/xregexp/xregexp.js' %}"></script>
+
+<script type="text/javascript" src="{% static 'markdownx/js/markdownx.js' %}"></script>
+
+<!--
+<script type="text/javascript" src="{% static 'admin/js/calendar.js' %}"></script>
+<script type="text/javascript" src="{% static 'admin/js/admin/DateTimeShortcuts.js' %}"></script>
+-->
+
+<!-- wiget.html 设置-->
+<link rel="stylesheet" style="text/css" href="{% static 'css/code/friendly.css' %}">
+<link rel="stylesheet" href="{% static 'css/bootstrap/3.3.7/bootstrap.min.css' %}">
+<link rel="stylesheet" style="text/css" href="{% static 'css/self/jblog-admin.css' %}">
+
+<script type="text/javascript"
+        id="django-admin-prepopulated-fields-constants"
+        src="{% static 'admin/js/prepopulate_init.js' %}"
+        data-prepopulated-fields="[]">
+</script>
+
+<script type="text/javascript"
+		id="django-admin-form-add-constants"
+		src="{% static 'admin/js/change_form.js' %}" data-model-name="blogpost">
+</script>
+
+<!-- End 设置该问题 -->
+<meta name="robots" content="NONE,NOARCHIVE" />

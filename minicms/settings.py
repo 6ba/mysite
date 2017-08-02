@@ -29,7 +29,7 @@ ALLOWED_HOSTS = ["*"]
 
 # the setting of blog_app
 # AUTH_USER_MODEL = "blog.NewUser"
-# LOGIN_URL = "/blog/login/?next='article_id'"
+LOGIN_URL = "/accounts/login/"
 
 # Application definition
 
@@ -41,10 +41,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'DjangoUeditor',
+    'markdownx',
 	'blog',
     #'weixin',
     'bbs',
-    
+    'test_app',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -132,7 +133,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
 
 
-STATIC_PATH = os.path.join(BASE_DIR,'static')
+STATIC_PATH = os.path.join(BASE_DIR, 'static')
 STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, "static"),
@@ -258,3 +259,5 @@ DEFAULT_FROM_EMAIL = 'm13429888211@163.com'
 
 # python -m smtpd -n -c DebuggingServer localhost:1025
 
+
+split = 8

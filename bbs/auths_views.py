@@ -1,20 +1,11 @@
 from django.shortcuts import render
 
 
-def login(request):
+## 用户管理的后台 所有的view. urls, 全部写在这里
 
-    return render(request, "", )
-
-def register(request):
-    return
+def user_index(request):
+    return render(request, "bbs/user/user_index.html")
 
 
-def logout(regester):
-    return
-
-
-def modify_users_img(request):
-    return
-
-
-def 
+def user_set(request):
+    return render(request, "bbs/user/user_set.html")

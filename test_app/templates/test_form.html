@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+
+    <meta charset="UTF-8">
+    <title>TestForm</title>
+</head>
+<body>
+<div>  {{ error }} </div>
+<form action="/t/" method="post">
+ 	 {% csrf_token %}
+          {{ form.as_p }}
+
+	<input id="sub" type="submit" value="Submit" >
+
+
+</form>
+
+
+</body>
+</html>
