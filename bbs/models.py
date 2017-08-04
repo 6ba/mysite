@@ -65,6 +65,7 @@ class Tie(models.Model):
         ordering = ['set_top', '-pub_date']
 
 
+# 后期需要添加字段-是否被采纳
 @python_2_unicode_compatible
 class Comment(models.Model):
     puter = models.ForeignKey(User, null=True, related_name="user_set")
@@ -73,6 +74,7 @@ class Comment(models.Model):
     pub_date = models.DateTimeField(auto_now_add=True, editable=True)
     vote = models.IntegerField("点赞数", default=0)
     obj_id = models.IntegerField("回复给谁", default=0)
+    put_wonderful = models.BooleanField("最佳答案", default=False)
 
     def __str__(self):
         return self.content
@@ -81,7 +83,7 @@ class Comment(models.Model):
         verbose_name = '评论'
 
 
-# 社区基本用户
+# 社区基本用户 | 账户
 @python_2_unicode_compatible
 class WebUser(models.Model):
     phone = models.CharField("手机号", max_length=100)
@@ -90,6 +92,8 @@ class WebUser(models.Model):
     name = models.CharField("姓名", max_length=100)
     danwei = models.CharField("单位", max_length=100)
     zhiwu = models.CharField("职务", max_length=100)
+    # 以后扩展积分, 来自于哪里
+
 
     user_pic = models.ImageField(
         verbose_name='文章标头图片535*270',
@@ -102,3 +106,6 @@ class WebUser(models.Model):
     class Meta:
         verbose_name = "网站手机号注册用户"
 
+
+
+# 账户相关信息; 积分, 账户状态, 账户评论数, 上面的 webUser 需要添加的字段。 From

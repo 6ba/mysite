@@ -4,8 +4,8 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 # from bookreader.spyder import spyder
-# from bbs import views
-from blog import views
+from bbs import views
+# from blog import views
 
 
 urlpatterns = [

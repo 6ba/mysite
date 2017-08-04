@@ -58,6 +58,7 @@ MIDDLEWARE_CLASSES = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     #'utils.test_middleware.Row1',
+    'minicms.MiddleWare.LoginMiddleware',
 ]
 
 ROOT_URLCONF = 'minicms.urls'

@@ -7,3 +7,9 @@ from django.template.defaultfilters import stringfilter
 def rq(value):
     return str(value.pub_date.year)+"-"+str(value.pub_date.month)+"-"+str(value.pub_date.day)
 
+
+@register.filter(name="size")
+def size(value):
+    return len(value)
+
+

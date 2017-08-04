@@ -1,0 +1,138 @@
+{% extends "bbs/tie_base.html"%}
+{% load staticfiles %}
+{% load blog_tag %}
+
+{% block content %}
+<ul class="fly-list fly-list-top">
+	{% for x in top_ties %}
+        <li class="fly-list-li">
+          <a href="/bbs/ties/{{ x.id }}/" class="fly-list-avatar">
+            <img src="http://tp4.sinaimg.cn/1345566427/180/5730976522/0" alt="">
+          </a>
+
+          <h2 class="fly-tip">
+            <a href="/bbs/ties/{{ x.id }}/">{{ x.title }}</a>
+
+			{% if x.set_top %}
+            <span class="fly-tip-stick">置顶</span>
+			{% endif %}
+
+			{% if wonderful %}
+            <span class="fly-tip-jing">精帖</span>
+			{% endif %}
+
+          </h2>
+          <p>
+            <span><a href="user/home.html">{{ x.author }}</a></span>
+            <span>{{ x.pub_date }}</span>
+            <span>{{ x.tag }}</span>
+            <span class="fly-list-hint">
+              <i class="iconfont" title="回答">&#xe60c;</i> {{ x.comment_num }}
+              <i class="iconfont" title="人气">&#xe60b;</i> {{ x.see_num }}
+            </span>
+          </p>
+        </li>
+       {% endfor %}
+
+      </ul>
+
+      <ul class="fly-list">
+	   {% block ties %}
+
+		{% for x in ties %}
+
+        <li class="fly-list-li">
+          <a href="/user/" class="fly-list-avatar">
+            <img src="http://tp4.sinaimg.cn/1345566427/180/5730976522/0" alt="">
+          </a>
+
+          <h2 class="fly-tip">
+            <a href="/bbs/ties/{{ x.id }}/">{{ x.title }}</a>
+			{% if x.set_top %}
+            <span class="fly-tip-stick">置顶</span>
+			{% endif %}
+
+			{% if x.wonderful %}
+            <span class="fly-tip-jing">精帖</span>
+			{% endif %}
+
+		  </h2>
+          <p>
+            <span><a href="user/home.html">{{ request.user.username }}</a></span>
+            <span>{{ x.pub_date }}</span>
+            <span>{{ x.tag }}</span>
+            <span class="fly-list-hint">
+              <i class="iconfont" title="回答">&#xe60c;</i> {{ x.comment }}
+              <i class="iconfont" title="人气">&#xe60b;</i> {{x.see_num }}
+            </span>
+          </p>
+        </li>
+
+		{% endfor %}
+	{% endblock %}
+
+      </ul>
+
+      <div style="text-align: center">
+        <div class="laypage-main">
+          <a href="jie/index.html" class="laypage-next">更多求解</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="edge">
+    <div class="fly-panel leifeng-rank">
+      <h3 class="fly-panel-title">近一月回答榜 - TOP {{ top_users | size }}</h3>
+      <dl>
+  {% for x in top_users %}
+		<dd>
+          <a href="user/home.html">
+            <img src="{% static '/bbs/res/images/avatar/default.png' %}">
+            <cite>actanble</cite>
+            <i>89</i>
+          </a>
+        </dd>
+  {% endfor %}
+      </dl>
+    </div>
+
+    <dl class="fly-panel fly-list-one">
+      <dt class="fly-panel-title">最近热帖</dt>
+	  {% for x in last_hots_ties %}
+      <dd>
+        <a href="/bbs/ties/{{ x.id }}/">{{ x.title }}</a>
+        <span><i class="iconfont">&#xe60b;</i> {{ x.see_num }}</span>
+      </dd>
+
+	  {% endfor %}
+    </dl>
+
+    <dl class="fly-panel fly-list-one">
+      <dt class="fly-panel-title">近期热议</dt>
+
+	  {% for x in last_top_comments_ties %}
+      <dd>
+		<a href="/bbs/ties/{{ x.id }}/">{{ x.title }}</a>
+        <span><i class="iconfont">&#xe60c;</i> {{ x.see_num }}</span>
+      </dd>
+		{% endfor %}
+
+    </dl>
+
+    <div class="fly-panel fly-link">
+      <h3 class="fly-panel-title">友情链接</h3>
+      <dl>
+        <dd>
+          <a href="http://www.layui.com/" target="_blank">layui</a>
+        </dd>
+        <dd>
+          <a href="http://layim.layui.com/" target="_blank">LayIM</a>
+        </dd>
+        <dd>
+          <a href="http://layer.layui.com/" target="_blank">layer</a>
+        </dd>
+      </dl>
+    </div>
+    {% endblock %}

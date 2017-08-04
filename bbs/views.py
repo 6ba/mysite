@@ -5,8 +5,20 @@ from .models import Tie, Tag, Comment
 
 
 def index(request):
-    print(request.META["USERNAME"])
-    return render(request, "bbs/index.html")
+
+    last_top_comments_ties = [Tie.objects.all()[0] for i in range(9)]
+    last_hots_ties = [Tie.objects.all()[3] for i in range(9)]
+    top_users = [request.user for i in range(12)]
+    top_ties = [Tie.objects.filter(set_top=True)][:2]
+    ties = [Tie.objects.all()[1] for i in range(9)]
+
+    return render(request, "bbs/homepage.html", {
+        "ties": ties,
+        "last_top_comments_ties": last_top_comments_ties,
+        "last_hots_ties": last_hots_ties,
+        "top_users": top_users,
+        "top_ties": top_ties,
+    })
 
 
 # 写入
@@ -61,7 +73,7 @@ def ties_unsolved(request):
     tie = Tie.objects.get(id=2)
     ties = [tie for i in range(12)]
     return render(request, "bbs/tie.html", {
-        "ties":ties,
+        "ties": ties,
     })
 
 
@@ -69,7 +81,7 @@ def ties_wonderful(request):
     tie = Tie.objects.get(id=1)
     ties = [tie for i in range(12)]
     return render(request, "bbs/tie.html", {
-        "ties":ties,
+        "ties": ties,
     })
 
 
@@ -115,13 +127,21 @@ def add(request):
     user = request.user
 
     if request.method == 'GET':
+        request.session['login_from'] = request.META.get('HTTP_REFERER', '/')
+        try:
+            if request.GET["next"]:
+                request.session['login_from'] = request.GET["next"]
+        except:
+            pass
+
         return render(request, "bbs/add.html", {})
 
     if request.method == 'POST':
 
-        tag = request.POST["tag"]
-        title=request.POST["title"]
-        content=request.POST["content"]
+        tag = request.POST["cate"]
+        title = request.POST["title"]
+        content = request.POST["content"]
+        vercode = request.POST["vercode"]
         if not tag in [t.name for t in Tag.objects.all()]:
             Tag.objects.create(name=tag, )
 
@@ -132,8 +152,9 @@ def add(request):
             author=user,
             tag=_tag,
         )
-
-        return HttpResponse("写入完成")
+        # 可以设置一个中间页面的模板; 进行渲染跳转。
+        # return HttpResponse("写入完成")
+        return redirect(request.session['login_from'])
 
     return render(request, "bbs/add.html", {
 

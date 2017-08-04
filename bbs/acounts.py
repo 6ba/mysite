@@ -32,14 +32,18 @@ def homepage(request):
 
 
 def log_in(request):
-    request.session['login_from'] = request.META.get('HTTP_REFERER', '/')
-
-    if request.GET["next"]:
-        request.session['login_from'] = request.GET["next"]
 
     if request.method == 'GET':
+
+        request.session['login_from'] = request.META.get('HTTP_REFERER', '/')
+        try:
+            if request.GET["next"]:
+                request.session['login_from'] = request.GET["next"]
+        except:
+            pass
+
         form = LoginForm()
-        request.session['login_from'] = request.META.get('HTTP_REFERER', '/wxb1/')
+        # request.session['login_from'] = request.META.get('HTTP_REFERER', '/wxb1/')
         return render(request, 'accounts/login.html', {'form': form})
 
     if request.method == 'POST':
@@ -55,6 +59,7 @@ def log_in(request):
             if user is not None:
                 login(request, user)
                 user.last_login = now()
+                print("jinxingugo"+ request.session['login_from'])
                 return redirect(request.session['login_from'])
             else:
                 # 失败了也要进——用自己的认证
@@ -74,10 +79,14 @@ def log_in(request):
 
 @login_required
 def log_out(request):
-    url = request.POST.get('source_url', '/')
-    logout(request)
-    return redirect(url)
-
+    if request.method == 'GET':
+        request.session['logout_from'] = request.META.get('HTTP_REFERER', '/')
+        url = request.POST.get('source_url', '/')
+        logout(request)
+    try:
+        return redirect(request.session['logout_from'])
+    except:
+        return redirect(url)
 
 def register(request):
     if request.method == 'GET':

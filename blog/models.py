@@ -12,6 +12,7 @@ class SliderPic(models.Model):
     img = models.ImageField('文章图片670x280', upload_to='uploads/blog/images/',
                             default='uploads/blog/images/default.jpg')
     desc = models.CharField("图片描述", max_length=222, default='')
+    url = models.CharField("链接URL", max_length=111, default="#")
 
     class Meta:
         verbose_name = "首页4图670x280"

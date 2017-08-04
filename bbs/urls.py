@@ -2,7 +2,8 @@ from django.conf.urls import url,include
 
 #from bookreader.spyder import spyder
 from bbs import views
-from . import auths_views
+from .auths_views import url_parterns
+
 
 urlpatterns = [
     url(r'^$', views.index, name="bbs主页"),
@@ -17,11 +18,8 @@ urlpatterns = [
 
     url(r'^ties/(?P<tie_id>[0-9]+)/$', views.tie_detail, name="帖子详情页"),
     ## user_ 后台的 partern 让其他的写。
-
-    url(r'^user/$', auths_views.user_index, name="用户主页"),
-    url(r'^user/set/$', auths_views.user_set, name="用户设置页面"),
-
-
 ]
+
+urlpatterns += url_parterns
 
 # "HM6NR-QXX7C-DFW2Y-8B82K-WTYJV"

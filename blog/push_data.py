@@ -15,9 +15,8 @@ from numpy.random import randint
 
 from blog.models import LanMu, Column, FrendLink
 
-def push_lm_and_columns():    
-    tags = []
 
+def push_lm_and_columns():
     temp = {}
     temp.setdefault("简生活", ["简单趣事", "游戏人生", "小经历", "感悟"])
     temp.setdefault("Web开发", ["Django", "Python_web", "html/css", "JavaScript", "Apache", "OS"])
@@ -47,8 +46,8 @@ def push_frendlink():
     temp.setdefault("我的cnblogs", "https://cnblogs.com/actanble")
     temp.setdefault("知乎", "https://www.zhihu.com/people/actanble/answers")
     temp.setdefault("设计师杨青", "http://www.yangqq.com" )
-    temp.setdefault("OpenCV", "http://opencv.org")
-    temp.setdefault("django", "https://django-book.com")
+    temp.setdefault("OpenCV", "#")
+    temp.setdefault("django", "#")
     temp.setdefault("阿里云", "https://aliyun.com")
 
     for key in temp.keys():
@@ -56,4 +55,3 @@ def push_frendlink():
     print("写入结束")
 
 push_frendlink()
-    

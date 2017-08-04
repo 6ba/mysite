@@ -1,7 +1,14 @@
-{% extends "bbs/bbs_base.html"%}
+{% extends "bbs/tie_base.html"%}
 {% load staticfiles %}
 {% load custom_markdown %}
 
+  {% block title %}
+详情页
+  {% endblock %}
+
+  {% block add_static %}
+{% include "bbs/markdown_config.html" %}
+  {% endblock %}
 
 {% block content %}
 
@@ -76,13 +83,16 @@
                   <em style="color:#999">（该号已被封）</em>
                 -->
 
-
 				</cite>
               </a>
               <div class="detail-hits">
                 <span>{{ y.pub_date }}</span>
               </div>
+
+                {% if y.put_wonderful %}
               <i class="iconfont icon-caina" title="最佳答案"></i>
+                {% endif %}
+
             </div>
             <div class="detail-body jieda-body">
               {{ y.content | custom_markdown }}
@@ -91,11 +101,16 @@
             <div class="jieda-reply">
               <span class="jieda-zan zanok" type="zan"><i class="iconfont icon-zan"></i><em>12</em></span>
               <span type="reply"><i class="iconfont icon-svgmoban53"></i>回复</span>
-              <!-- <div class="jieda-admin">
-                <span type="edit">编辑</span>
-                <span type="del">删除</span>
-                <span class="jieda-accept" type="accept">采纳</span>
-              </div> -->
+
+                {% if y.puter == request.user %}
+                   <div class="jieda-admin">
+                    <span type="edit">编辑</span>
+                    <span type="del">删除</span>
+                       {% if request.user == tie.author %}
+                    <span class="jieda-accept" type="accept">采纳</span>
+                       {% endif %}
+                  </div>
+                {% endif %}
             </div>
           </li>
 
